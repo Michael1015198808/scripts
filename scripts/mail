@@ -1,0 +1,40 @@
+#!/bin/python3
+
+# Send a mail to given mailbox
+# Usage: mail [content]
+# Example: mail "Hello"
+#           will send your email a mail with content "Hello"
+import yagmail
+import os
+import sys
+import json
+
+conf = os.path.join(os.path.dirname(__file__), "..", "mail.json")
+
+if not os.path.exists(conf):
+    print("Place create mail.json at %s" % os.path.join(os.path.dirname(__file__), ".."))
+    print("Format:")
+    print('''{
+    "user": your email's username
+    "password": your email's password
+}''')
+    exit(-1)
+
+with open(conf, "r") as f:
+    config = json.load(f)
+smtp_host = "smtp.exmail.qq.com"
+mail = yagmail.SMTP(user=config["user"], password=config["password"], host=smtp_host, port=465)
+
+subject = "Auto mail"
+
+if len(sys.argv) == 1:
+    contents = "RT"
+elif len(sys.argv) == 2:
+    contents = sys.argv[1]
+else:
+    print("Too many arguments! Expect 1 or 2, get %d" % (len(sys.argv)),
+          file=sys.stderr)
+    print("Arguments:", sys.argv, file=sys.stderr)
+    exit(-1)
+
+mail.send(to=["1015198808@qq.com"], subject=subject, contents=contents)

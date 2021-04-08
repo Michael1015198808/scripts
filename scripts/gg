@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Compile C++ programs with common arguments.
+# Usage: gg <program>
+# Example: gg std 
+#           will compile std.cpp into std.
+g++ --std=c++17 -g "$1".cpp -o "$1"

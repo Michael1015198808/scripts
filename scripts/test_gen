@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Generate OJ's .in and .out files.
+# Usage: test_gen [tests]
+# Example: test_gen 20
+#           will use ./rand as random .in generator
+#               use ./std as standard program
+#               and generates 20 tests, stored in ./data .
+mkdir -p data;
+gg rand;
+gg std;
+if [ -n "$1" ];
+then
+    length=$1;
+else
+    length=9;
+fi;
+
+for i in $(seq 0 $length);
+do
+    ./rand $i > data/$i.in;
+    ./std < data/$i.in > data/$i.out;
+done;
+cd data && zip data.zip "*.in" "*.out";
