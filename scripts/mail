@@ -37,4 +37,4 @@ else:
     print("Arguments:", sys.argv, file=sys.stderr)
     exit(-1)
 
-mail.send(to=["1015198808@qq.com"], subject=subject, contents=contents)
+mail.send(to=[config["receiver"]], subject=subject, contents=contents)
