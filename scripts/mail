@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/usr/bin/python3
 
 # Send a mail to given mailbox
 # Usage: mail [content]
