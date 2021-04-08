@@ -9,6 +9,20 @@ A collections of useful scripts (at least useful for me).
 3. `reset` current terminal or start a new terminal. (To update $PATH)
 4. Use scripts like builtin scripts! (All scripts contains usage and information in them)
 
+## Brief Introduction
+
+Introduce all scripts lexicographically.
+
+- gg
+    Compile C++ programs with common arguments.
+- mail
+    Send an email.
+- test_gen
+    Generate test cases for Online Judge (or other usages).
+- watch_dog
+    Send you an email when given file contains certain pattern.
+    (e.g., mail you when your ML model has trained for 10000 epochs.)
+
 ## Format
 
 - The first line of scripts is the shebang, to make scripts convinient to use.
