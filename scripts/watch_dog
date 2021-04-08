@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Watch a file's last five lines and send you an email when certain pattern is found.
+# Usage: watch_dog <file> <sentence> [mail content]
+# Example: watch_dog log "Epoch 100" "Already trained for 100 epochs"
+#           will send you an email when the last five lines of log contains pattern "Epoch 100".
+
+if [ $# -lt 2 ]
+then
+    echo "Usage: $0 <file> <sentence> [mail content]"
+    exit -1;
+fi
+
+if [ -n "$3" ]
+then
+    msg="$3";
+else
+    msg="$2 found.";
+fi
+
+while true;
+do
+    if tail -5 $1 | grep -q "$2";
+    then
+        echo "pattern found!"
+        mail "$msg";
+        exit 0;
+    else
+        sleep 60; # Sleep to save resources
+    fi;
+done;
