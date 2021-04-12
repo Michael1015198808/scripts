@@ -15,8 +15,9 @@ if not os.path.exists(conf):
     print("Place create mail.json at %s" % os.path.join(os.path.dirname(__file__), ".."))
     print("Format:")
     print('''{
-    "user": your email's username
-    "password": your email's password
+    "user": your email's username,
+    "password": your email's password,
+    "receiver": email's receiver,
 }''')
     exit(-1)
 
@@ -32,7 +33,7 @@ if len(sys.argv) == 1:
 elif len(sys.argv) == 2:
     contents = sys.argv[1]
 else:
-    print("Too many arguments! Expect 1 or 2, get %d" % (len(sys.argv)),
+    print("Too many arguments! Expect 0 or 1, get %d" % (len(sys.argv) - 1),
           file=sys.stderr)
     print("Arguments:", sys.argv, file=sys.stderr)
     exit(-1)
