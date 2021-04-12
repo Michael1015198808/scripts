@@ -26,6 +26,6 @@ do
         mail "$msg";
         exit 0;
     else
-        sleep 60; # Sleep to save resources
+        sleep 1; # Sleep to save resources
     fi;
 done;
