@@ -1,0 +1,41 @@
+#!/usr/bin/python3
+
+# Send a telegram message to given chat
+# Usage: tele [content]
+# Example: tele "Hello, world!"
+#           will send a message with content "Hello, world!"
+import requests
+import os
+import sys
+import json
+
+conf = os.path.join(os.path.dirname(__file__), "..", "tele.json")
+
+if not os.path.exists(conf):
+    print("Place create mail.json at %s" % os.path.join(os.path.dirname(__file__), ".."))
+    print("Format:")
+    print('''{
+    "token": your bot's token (see https://core.telegram.org/bots#6-botfather),
+    "chat_id": chat_id to send,
+    "proxies": your proxy's config ({"https": "socks5s://hostname:port"} for socks5)
+}''')
+    exit(-1)
+
+with open(conf, "r") as f:
+    config = json.load(f)
+
+if len(sys.argv) == 1:
+    content = "Hello, friend!"
+elif len(sys.argv) == 2:
+    content = sys.argv[1]
+else:
+    print("Too many arguments! Expect 0 or 1, get %d" % (len(sys.argv) - 1), file=sys.stderr)
+    print("Arguments:", sys.argv, file=sys.stderr)
+    exit(-1)
+
+response = requests.post(
+    url="https://api.telegram.org/bot%s/sendMessage" % config["token"],
+    data={"chat_id": config["chat_id"], "text": content},
+    proxies=config["proxies"]
+).json()
+print(response)
